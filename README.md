@@ -6,7 +6,7 @@ Blazingly-fast compile-time const-fns copy-free unweighted graph library
 
 Add this line bellow `[dependencies]` in your `Cargo.toml` file:
 ```
-const_graphs = { git = "https://github.com/TiagoCavalcante/const_graphs" }
+const_graphs = "*"
 ```
 
 And to create a graph:
