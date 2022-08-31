@@ -39,9 +39,9 @@ fn bfs<const SIZE: usize>(
 
   while let Some(current) = queue.pop_front() {
     for (neighbor, &has_edge) in graph
-																		 .get_edges(current)
-																		 .iter()
-																		 .enumerate() {
+                                     .get_edges(current)
+                                     .iter()
+                                     .enumerate() {
       if has_edge && distance[neighbor] == usize::MAX {
         distance[neighbor] = distance[current] + 1;
         predecessor[neighbor] = current;
