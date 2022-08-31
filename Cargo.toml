@@ -1,6 +1,6 @@
 [package]
 name = "const_graphs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "LGPL-2.1"
 description = "Blazingly-fast compile-time const-fns copy-free unweighted graph library"
