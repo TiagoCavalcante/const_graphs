@@ -30,21 +30,24 @@ fn bfs<const SIZE: usize>(
 ) -> Option<Vec<usize>> {
   let mut queue = std::collections::VecDeque::new();
 
-  let mut distance = vec![usize::MAX; SIZE];
-  let mut predecessor = vec![usize::MAX; SIZE];
+  let mut distance = [usize::MAX; SIZE];
+  let mut predecessor = [usize::MAX; SIZE];
 
   distance[start] = 0;
 
   queue.push_back(start);
 
   while let Some(current) = queue.pop_front() {
-    for &vertex in graph.get_neighbors(current) {
-      if distance[vertex] == usize::MAX {
-        distance[vertex] = distance[current] + 1;
-        predecessor[vertex] = current;
-        queue.push_back(vertex);
+    for (neighbor, &has_edge) in graph
+																		 .get_edges(current)
+																		 .iter()
+																		 .enumerate() {
+      if has_edge && distance[neighbor] == usize::MAX {
+        distance[neighbor] = distance[current] + 1;
+        predecessor[neighbor] = current;
+        queue.push_back(neighbor);
 
-        if vertex == end {
+        if neighbor == end {
           let mut path = vec![end];
           let mut current = end;
           while predecessor[current] != usize::MAX {

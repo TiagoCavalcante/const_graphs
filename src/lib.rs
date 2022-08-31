@@ -10,8 +10,8 @@
 //! ) -> Option<Vec<usize>> {
 //!   let mut queue = std::collections::VecDeque::new();
 //!
-//!   let mut distance = vec![usize::MAX; SIZE];
-//!   let mut predecessor = vec![usize::MAX; SIZE];
+//!   let mut distance = [usize::MAX; SIZE];
+//!   let mut predecessor = [usize::MAX; SIZE];
 //!
 //!   distance[start] = 0;
 //!

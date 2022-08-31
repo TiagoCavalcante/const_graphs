@@ -3,7 +3,18 @@
 /// use const_graphs::Graph;
 ///
 /// const SIZE: usize = 1_000;
-/// const graph: Graph<SIZE> = Graph::<SIZE>::new();
+/// // You can use const.
+/// const graph1: Graph<SIZE> = Graph::new();
+/// 
+/// // And, static.
+/// static mut graph2: Graph<SIZE> = Graph::new();
+/// unsafe {
+///   graph2.add_edge(0, 1);
+///   assert!(graph2.has_edge(0, 1));
+/// }
+/// 
+/// // And, of course, let too:
+/// let graph3 = Graph::<SIZE>::new();
 /// ```
 pub struct Graph<const SIZE: usize> {
   data: [[bool; SIZE]; SIZE],
@@ -33,6 +44,7 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// assert!(graph.has_edge(0, 1));
   /// assert!(graph.has_edge(1, 0));
   /// ```
+  /// See also [Graph::add_edge].
   pub const fn add_edge_undirected(
     &mut self,
     i: usize,
@@ -51,6 +63,7 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// graph.remove_edge(0, 1);
   /// assert!(!graph.has_edge(0, 1));
   /// ```
+  /// See also [Graph::remove_edge_undirected].
   pub const fn remove_edge(&mut self, i: usize, j: usize) {
     self.data[i][j] = false;
   }
@@ -66,6 +79,7 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// assert!(!graph.has_edge(0, 1));
   /// assert!(!graph.has_edge(1, 0));
   /// ```
+  /// See also [Graph::remove_edge].
   pub const fn remove_edge_undirected(
     &mut self,
     i: usize,
@@ -90,6 +104,13 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// Returns an array where the ith element is a boolean
   /// representing whether there is an edge between `vertex`
   /// and `i`.
+  /// ```
+  /// use const_graphs::Graph;
+  ///
+  /// let mut graph = Graph::<3>::new();
+  /// graph.add_edge(0, 2);
+  /// assert_eq!(graph.get_edges(0), &[false, false, true]);
+  /// ```
   pub const fn get_edges(
     &self,
     vertex: usize,
@@ -97,18 +118,7 @@ impl<const SIZE: usize> Graph<SIZE> {
     &self.data[vertex]
   }
 
-  /// Returns the maximum number of edges in a
-  /// [directed graph](https://en.wikipedia.org/wiki/Directed_graph),
-  /// if your graph is
-  /// [undirected graphs](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Graph)
-  /// you should use [Graph::max_number_of_edges_undirected]
-  /// instead.
-  ///
-  /// Note that the maximum number of edges in a
-  /// [directed graph](https://en.wikipedia.org/wiki/Directed_graph)
-  /// is always the double of the number of edes in the
-  /// equivalent
-  /// [undirected graphs](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Graph).
+  /// Returns the maximum number of edges of a graph.
   /// ```
   /// use const_graphs::Graph;
   ///
