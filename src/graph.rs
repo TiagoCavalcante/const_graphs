@@ -111,11 +111,45 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// graph.add_edge(0, 2);
   /// assert_eq!(graph.get_edges(0), &[false, false, true]);
   /// ```
+  /// See also [Graph::get_inverse_edges].
   pub const fn get_edges(
     &self,
     vertex: usize,
   ) -> &[bool; SIZE] {
     &self.data[vertex]
+  }
+
+  /// Returns an array where the ith element is a boolean
+  /// representing whether there is an edge between `i` and
+  /// `vertex`.
+  /// This is useful in a few graph algoriths where you need
+  /// to know which vertices "point" to the current, and not
+  /// the contrary.
+  /// ```
+  /// use const_graphs::Graph;
+  ///
+  /// let mut graph = Graph::<3>::new();
+  /// graph.add_edge(0, 2);
+  /// assert_eq!(
+  ///   graph.get_inverse_edges(2),
+  ///   [true, false, false]
+  /// );
+  /// ```
+  /// See also [Graph::get_edges].
+  pub const fn get_inverse_edges(
+    &self,
+    vertex: usize,
+  ) -> [bool; SIZE] {
+    let mut edges = [false; SIZE];
+
+    let mut neighbor = 0;
+    while neighbor < SIZE {
+      edges[neighbor] = self.data[neighbor][vertex];
+
+      neighbor += 1;
+    }
+
+    edges
   }
 
   /// Returns the maximum number of edges of a graph.
