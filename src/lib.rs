@@ -41,10 +41,10 @@
 //!       }
 //!     }
 //!   }
-//!
+//!   
 //!   return None;
 //! }
-//! 
+//!
 //! use const_graphs::WeightedGraph;
 //!
 //! fn bfs_weighted<const SIZE: usize>(

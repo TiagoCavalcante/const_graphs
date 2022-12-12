@@ -5,7 +5,7 @@
 /// const SIZE: usize = 1_000;
 /// // You can use const.
 /// const graph1: Graph<SIZE> = Graph::new();
-/// 
+///
 /// // And, static.
 /// static mut graph2: Graph<SIZE> = Graph::new();
 /// unsafe {
