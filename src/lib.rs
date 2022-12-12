@@ -1,4 +1,4 @@
-//! Blazingly-fast compile-time copy-free graph library.
+//! Blazingly-fast compile-time copy-free graph crate.
 //! ```
 //! use const_graphs::Graph;
 //!
