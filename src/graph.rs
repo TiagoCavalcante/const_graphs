@@ -12,7 +12,7 @@
 ///   graph2.add_edge(0, 1);
 ///   assert!(graph2.has_edge(0, 1));
 /// }
-/// 
+///
 /// // And, of course, let too:
 /// let graph3 = Graph::<SIZE>::new();
 /// ```
@@ -122,9 +122,9 @@ impl<const SIZE: usize> Graph<SIZE> {
   /// Returns an array where the ith element is a boolean
   /// representing whether there is an edge between `i` and
   /// `vertex`.
-  /// This is useful in a few graph algoriths where you need
-  /// to know which vertices "point" to the current, and not
-  /// the contrary.
+  /// This is useful in a few graph algorithms where you
+  /// need to know which vertices "point" to the current,
+  /// and not the contrary.
   /// ```
   /// use const_graphs::Graph;
   ///
