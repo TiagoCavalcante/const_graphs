@@ -4,26 +4,26 @@
 ///
 /// const SIZE: usize = 500;
 /// // You can use const.
-/// const graph1: WeightedGraph<SIZE>
+/// const graph1: WeightedGraph<SIZE, usize>
 ///   = WeightedGraph::new();
 ///
 /// // And, static.
 /// static mut graph2: WeightedGraph<SIZE>
-///   = WeightedGraph::new();
-/// 
+///   = WeightedGraph::new(); // f32
+///
 /// unsafe {
 ///   graph2.add_edge(0, 1, 0.1);
 ///   assert!(graph2.has_edge(0, 1));
 /// }
 ///
 /// // And, of course, let too:
-/// let graph3 = WeightedGraph::<SIZE>::new();
+/// let graph3 = WeightedGraph::<SIZE, f64>::new();
 /// ```
-pub struct WeightedGraph<const SIZE: usize> {
-  data: [[Option<f32>; SIZE]; SIZE],
+pub struct WeightedGraph<const SIZE: usize, T: Copy = f32> {
+  data: [[Option<T>; SIZE]; SIZE],
 }
 
-impl<const SIZE: usize> WeightedGraph<SIZE> {
+impl<const SIZE: usize, T: Copy> WeightedGraph<SIZE, T> {
   /// Add an edge to the graph between `i` and `j`.
   /// ```
   /// use const_graphs::WeightedGraph;
@@ -37,7 +37,7 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
     &mut self,
     i: usize,
     j: usize,
-    weight: f32,
+    weight: T,
   ) {
     self.data[i][j] = Some(weight);
   }
@@ -57,7 +57,7 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
     &mut self,
     i: usize,
     j: usize,
-    weight: f32,
+    weight: T,
   ) {
     self.data[i][j] = Some(weight);
     self.data[j][i] = Some(weight);
@@ -110,7 +110,7 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
     &self,
     i: usize,
     j: usize,
-  ) -> Option<f32> {
+  ) -> Option<T> {
     self.data[i][j]
   }
 
@@ -134,15 +134,15 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
   /// let mut graph = WeightedGraph::<3>::new();
   /// graph.add_edge(0, 2, 2.3);
   /// assert_eq!(
-	///   graph.get_edges(0),
-	///   &[None, None, Some(2.3)]
-	/// );
+  ///   graph.get_edges(0),
+  ///   &[None, None, Some(2.3)]
+  /// );
   /// ```
   /// See also [WeightedGraph::get_inverse_edges].
   pub const fn get_edges(
     &self,
     vertex: usize,
-  ) -> &[Option<f32>; SIZE] {
+  ) -> &[Option<T>; SIZE] {
     &self.data[vertex]
   }
 
@@ -165,7 +165,7 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
   pub const fn get_inverse_edges(
     &self,
     vertex: usize,
-  ) -> [Option<f32>; SIZE] {
+  ) -> [Option<T>; SIZE] {
     let mut edges = [None; SIZE];
 
     let mut neighbor = 0;
@@ -259,7 +259,7 @@ impl<const SIZE: usize> WeightedGraph<SIZE> {
   /// const SIZE: usize = 10;
   /// let graph = WeightedGraph::<SIZE>::new();
   /// ```
-  pub const fn new() -> WeightedGraph<SIZE> {
+  pub const fn new() -> WeightedGraph<SIZE, T> {
     WeightedGraph {
       data: [[None; SIZE]; SIZE],
     }
