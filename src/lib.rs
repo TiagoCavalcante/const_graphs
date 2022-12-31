@@ -1,4 +1,4 @@
-//! Blazingly-fast compile-time copy-free graph crate.
+//! Blazingly-fast compile-time no-std graph crate.
 //! ```
 //! use const_graphs::Graph;
 //!
@@ -92,6 +92,7 @@
 //! }
 //! ```
 
+#![no_std]
 #![feature(const_mut_refs)]
 #![feature(const_fn_floating_point_arithmetic)]
 #![deny(missing_docs)]

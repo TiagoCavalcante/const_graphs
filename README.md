@@ -1,6 +1,6 @@
 # const_graphs
 
-Blazingly-fast compile-time copy-free graph [crate](https://crates.io/crates/const_graphs)
+Blazingly-fast compile-time no-std graph [crate](https://crates.io/crates/const_graphs)
 
 ## Quickstart
 

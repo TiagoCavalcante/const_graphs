@@ -1,7 +1,11 @@
 [package]
 name = "const_graphs"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 license = "LGPL-2.1"
-description = "Blazingly-fast compile-time copy-free graph crate"
+description = "Blazingly-fast compile-time no-std graph crate"
 repository = "https://github.com/TiagoCavalcante/const_graphs"
+
+[features]
+# Enable support for the standard library.
+std = []
